@@ -33,12 +33,18 @@ const Products = () => {
 
   const openModal = (product: any) =>{
     setModalProduct(product);
-    document.getElementById('productModal').showModal()
+    let el: any = document.getElementById('productModal')
+    if(el){
+      el.showModal()
+    }
   }
 
   const closeModal = () =>{
     setModalProduct(initProduct);
-    document.getElementById('closeModalBtn').click()
+    let el: any = document.getElementById('closeModalBtn');
+    if(el){
+      el.click()
+    }
   }
 
   return (
