@@ -10,9 +10,13 @@ import formatAsCurrency from "../lib/formatAsCurrency";
 
 
 const NavBar = () => {
-
   const router = useRouter();
+
+
   const getCartData = () => {
+    if(typeof window === "undefined"){
+      return [];
+    }
     let cart = localStorage.getItem("cartProducts");
     let cartProducts: any = []
     if (cart) {
@@ -23,6 +27,9 @@ const NavBar = () => {
   }
 
   const decreaseQuantity = (productId: string) => {
+    if(typeof window === "undefined"){
+      return;
+    }
     let cartData = getCartData();
     cartData.forEach((item: any) => {
       if (item?.id === productId && item?.quantity > 1) {
@@ -33,6 +40,9 @@ const NavBar = () => {
     router.refresh();
   }
   const increaseQuantity = (productId: string) => {
+    if(typeof window === "undefined"){
+      return;
+    }
     let cartData = getCartData();
     cartData.forEach((item: any) => {
       if (item?.id === productId) {
@@ -44,6 +54,9 @@ const NavBar = () => {
   }
 
   const removeFromCart = (productId: string)=>{
+    if(typeof window === "undefined"){
+      return;
+    }
     let cartData = getCartData();
     cartData = cartData.filter( (item: any) => item.id !== productId)
     localStorage.setItem("cartProducts", JSON.stringify(cartData))
@@ -51,6 +64,9 @@ const NavBar = () => {
   }
 
   const getTotalAmount = () =>{
+    if(typeof window === "undefined"){
+      return 0;
+    }
     let cartData = getCartData();
     let total = 0
     cartData.forEach( (item: any) =>{
