@@ -70,7 +70,7 @@ const NavBar = () => {
     let cartData = getCartData();
     let total = 0
     cartData.forEach( (item: any) =>{
-      total += parseInt(item?.price)
+      total += (parseInt(item?.price) * parseInt(item?.quantity))
     })
     return total;
   }
