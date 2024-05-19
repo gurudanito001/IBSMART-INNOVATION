@@ -99,15 +99,7 @@ const NavBar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li><a>About Us</a></li>
-          <li>
-            <details>
-              <summary>Products</summary>
-              <ul className="p-2 bg-white min-w-40 rounded-none">
-                <li><a className="text-xs">New</a></li>
-                <li><a className="text-xs">Used</a></li>
-              </ul>
-            </details>
-          </li>
+          <li><a>Products</a></li>
           <li><a>Social Media</a></li>
         </ul>
       </div>
@@ -187,22 +179,16 @@ const NavBar = () => {
           </div>
         </div>
 
-        <a className="btn bg-white border-gray-950 text-gray-950 hover:text-white text-sm rounded-none w-28 ml-5 hover:bg-gray-950 hidden md:inline-flex">Buy Now</a>
+        {/* <a className="btn bg-white border-gray-950 text-gray-950 hover:text-white text-sm rounded-none w-28 ml-5 hover:bg-gray-950 hidden md:inline-flex">Buy Now</a> */}
 
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost px-3 lg:hidden">
             <Bars3BottomRightIcon className="w-5" />
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a>Item 1</a></li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-              </ul>
-            </li>
-            <li><a>Item 3</a></li>
+            <li><a>About Us</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a>Social Media</a></li>
           </ul>
         </div>
       </div>
