@@ -1,16 +1,15 @@
 "use client"
-import { products } from "../products";
+import { products, Product } from "../products";
 import formatAsCurrency from "../lib/formatAsCurrency";
 import Image from "next/image";
 import ProductModal from "./productModal";
 import { useRef, useState } from "react";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 //console.log(products);
 const ColorIndicator = ({ color = "#000000" }) => {
   return (
     <div className=" w-2 h-2 rounded-full mr-1" style={{ background: color }}>
-
     </div>
   )
 }
@@ -28,8 +27,102 @@ const Products = () => {
     discount: "",
     additionalInformation: ""
   }
-  const [modalProduct, setModalProduct] = useState(initProduct)
-  const modalRef: any = useRef(null);
+  const [modalProduct, setModalProduct] = useState(initProduct);
+  const [phoneSearch, setPhoneSearch] = useState<{ name: string, categories: string[] }>({
+    name: "",
+    categories: []
+  });
+  const [laptopSearch, setLaptopSearch] = useState<{ name: string, categories: string[] }>({
+    name: "",
+    categories: []
+  });
+  const [accessorySearch, setAccessorySearch] = useState<{ name: string, categories: string[] }>({
+    name: "",
+    categories: []
+  });
+
+  const handleSearchPhone = (prop: string, value: string) => {
+    setPhoneSearch(prevState => ({
+      ...prevState,
+      [prop]: value
+    }))
+  }
+
+  const handleSearchLaptop = (prop: string, value: string) => {
+    setLaptopSearch(prevState => ({
+      ...prevState,
+      [prop]: value
+    }))
+  }
+
+
+  const handleSearchAccessory = (prop: string, value: string) => {
+    setAccessorySearch(prevState => ({
+      ...prevState,
+      [prop]: value
+    }))
+  }
+
+  const handleSetCategorySearch = (mainCategory: "phone" | "laptop" | "accessories", category: string) => {
+    if (mainCategory === "phone") {
+      let data = { ...phoneSearch };
+      if (data?.categories.includes(category)) {
+        return;
+      }
+      data.categories = [...data.categories, category]
+      setPhoneSearch(data);
+    } else if (mainCategory === "laptop") {
+      let data = { ...laptopSearch };
+      if (data?.categories.includes(category)) {
+        return;
+      }
+      data.categories = [...data.categories, category]
+      setLaptopSearch(data);
+    } else if (mainCategory === "accessories") {
+      let data = { ...accessorySearch };
+      if (data?.categories.includes(category)) {
+        return;
+      }
+      data.categories = [...data.categories, category]
+      setAccessorySearch(data);
+    }
+  }
+
+  const listCategories = (mainCategory: "phone" | "laptop" | "accessories") => {
+    let categories;
+    if (mainCategory === "phone") {
+      categories = phoneSearch.categories
+    } else if (mainCategory === "laptop") {
+      categories = laptopSearch.categories
+    } else if (mainCategory === "accessories") {
+      categories = accessorySearch.categories
+    }
+
+    return categories?.map(item => {
+      return (
+        <li key={item} className="mr-2 glass text-white text-xs flex items-center rounded-xl px-2">{item} <XMarkIcon onClick={() => removeCategory(mainCategory, item)} className="w-4 ml-3 text-red-600 cursor-pointer" /></li>
+      )
+    })
+  }
+
+  const removeCategory = (mainCategory: "phone" | "laptop" | "accessories", category: string) => {
+    if (mainCategory === "phone") {
+      let data = { ...phoneSearch };
+      data.categories = data.categories.filter(item => item !== category);
+      setPhoneSearch(data)
+    } else if (mainCategory === "laptop") {
+      let data = { ...laptopSearch };
+      data.categories = data.categories.filter(item => item !== category);
+      setLaptopSearch(data)
+    } else if (mainCategory === "accessories") {
+      let data = { ...accessorySearch };
+      data.categories = data.categories.filter(item => item !== category);
+      setAccessorySearch(data)
+    }
+  }
+
+
+
 
   const openModal = (product: any) => {
     setModalProduct(product);
@@ -47,41 +140,81 @@ const Products = () => {
     }
   }
 
-  const getAllCategories = ()=>{
+  const getAllCategories = (products: Product[], mainCategory: string) => {
     let categories: string[] = [];
-    products.forEach( item =>{
+    products.forEach(item => {
       categories = [...categories, ...item?.categories]
     })
-    return [...new Set(categories)];
+    let allCategories = [...new Set(categories)]
+    let mainCategoryIndex = allCategories.indexOf(mainCategory);
+    allCategories.splice(mainCategoryIndex, 1);
+    return allCategories
   }
 
-  const generateCategoryOptions = ()=>{
-    let categories = getAllCategories();
-    return categories.map( item =>{
-      return(
-        <li key={item}><a className="capitalize text-gray-700 text-xs">{item}</a></li>
+  const getProductsOfCategory = (category: string) => {
+    let categoryProducts = products.filter(item => item.categories.includes(category))
+    if (category === "phone") {
+      if (phoneSearch.name) {
+        categoryProducts = categoryProducts.filter(item => item.name.toLowerCase().trim().includes(phoneSearch?.name.toLowerCase().trim()))
+      }
+      if(phoneSearch.categories.length > 0){
+        categoryProducts = categoryProducts.filter( item => {
+          let combinedCategories = new Set([...item.categories, ...phoneSearch.categories]);
+          if(combinedCategories.size === item.categories.length){
+            return item
+          } 
+        })
+      }
+    }
+    if (category === "laptop") {
+      if (laptopSearch.name) {
+        categoryProducts = categoryProducts.filter(item => item.name.toLowerCase().trim().includes(laptopSearch?.name.toLowerCase().trim()))
+      }
+      if(laptopSearch.categories.length > 0){
+        categoryProducts = categoryProducts.filter( item => {
+          let combinedCategories = new Set([...item.categories, ...laptopSearch.categories]);
+          if(combinedCategories.size === item.categories.length){
+            return item
+          } 
+        })
+      }
+    }
+    return categoryProducts;
+  }
+
+  const generateCategoryOptions = (mainCategory: "phone" | "laptop" | "accessories") => {
+    let filteredproducts = products.filter(item => item.categories.includes(mainCategory))
+    let categories = getAllCategories(filteredproducts, mainCategory);
+    return categories.map(item => {
+      return (
+        <li onClick={() => handleSetCategorySearch(mainCategory, item)} key={item}><a className="capitalize text-gray-700 text-xs">{item}</a></li>
       )
     })
   }
 
   return (
     <section id="products" className="bg-primary py-8 px-3 lg:px-20 overflow-x-hidden">
-      <h6 className="text-white mb-5">Products</h6>
-      <header className="flex items-center mb-3">
-        <div className="dropdown dropdown-bottom">
-          <div tabIndex={0} role="button" className="flex items-center m-1 text-xs md:text-sm h-4">Categories <ChevronDownIcon className="w-4 ml-1" /></div>
-          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-            {generateCategoryOptions()}
-          </ul>
+      <header className="flex flex-col md:flex-row items-center mb-3">
+        <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
+          <div className="dropdown dropdown-bottom mb-1">
+            <div tabIndex={0} role="button" className="flex items-center m-1 text-xs md:text-sm h-4">Phones <ChevronDownIcon className="w-4 ml-1" /></div>
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              {generateCategoryOptions("phone")}
+            </ul>
+          </div>
+          <ul className="flex items-center">{listCategories("phone")}</ul>
         </div>
 
-        <label className="input input-bordered flex items-center gap-2 ml-4 h-12 md:ml-auto w-full md:w-80 bg-transparent border border-gray-200">
-          <input type="text" placeholder="Search Products" className="input w-full max-w-xs text-white text-xs" />
+
+        <label className="input input-bordered flex items-center gap-2 h-12 md:ml-auto w-full md:w-80 bg-transparent border border-gray-200">
+          <input type="text" value={phoneSearch.name} onChange={(e) => handleSearchPhone("name", e.target.value)} placeholder="Search Phones" className="input w-full max-w-xs text-white text-xs" />
           <MagnifyingGlassIcon className="w-4 text-white" />
+
         </label>
       </header>
-      <ul className="carousel rounded-box w-full z-0 py-5 mb-20" >
-        {products?.map(item => {
+
+      <ul className="carousel rounded-box w-full z-0 py-5 mb-20 min-h-80" >
+        {getProductsOfCategory("phone")?.map(item => {
           return (
             <li key={item?.name} onClick={() => openModal(item)} className="carousel-item w-2/5 inline-flex flex-col lg:w-1/6 justify-end p-1 md:p-4 mx-2 cursor-pointer glass">
               <Image
@@ -104,297 +237,54 @@ const Products = () => {
 
       </ul>
 
-      {/* <h6 className="text-lg text-white mb-1">Laptops</h6>
-      <ul className="carousel rounded-box w-full glass z-0 py-5 mb-20" >
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/macbook.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Macbook Pro 2023 M1</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
 
+
+      <header className="flex items-center mb-3">
+        <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
+          <div className="dropdown dropdown-bottom mb-1">
+            <div tabIndex={0} role="button" className="flex items-center m-1 text-xs md:text-sm h-4">Laptops <ChevronDownIcon className="w-4 ml-1" /></div>
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              {generateCategoryOptions("laptop")}
+            </ul>
+          </div>
+          <ul className="flex items-center">{listCategories("laptop")}</ul>
+        </div>
+        {/* <div className="dropdown dropdown-bottom">
+          <div tabIndex={0} role="button" className="flex items-center m-1 text-xs md:text-sm h-4">Laptops <ChevronDownIcon className="w-4 ml-1" /></div>
+          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            {generateCategoryOptions("laptop")}
+          </ul>
+        </div> */}
+
+        <label className="input input-bordered flex items-center gap-2 ml-4 h-12 md:ml-auto w-full md:w-80 bg-transparent border border-gray-200">
+          <input type="text" value={laptopSearch.name} onChange={(e) => handleSearchLaptop("name", e.target.value)} placeholder="Search Laptops" className="input w-full max-w-xs text-white text-xs" />
+          <MagnifyingGlassIcon className="w-4 text-white" />
+        </label>
+      </header>
+      <ul className="carousel rounded-box w-full z-0 py-5 mb-20 min-h-80" >
+        {getProductsOfCategory("laptop")?.map(item => {
+          return (
+            <li key={item?.name} onClick={() => openModal(item)} className="carousel-item w-2/5 inline-flex flex-col lg:w-1/6 justify-end p-1 md:p-4 mx-2 cursor-pointer glass">
+              <Image
+                src={`/images/${item?.images[0]}`}
+                style={{ height: "200px", width: "auto", objectFit: "contain" }}
+                alt="Product Image"
+                width={300}
+                height={300}
+              />
+              <h4 className="text-sm mt-3"> {item?.name} </h4>
+              <div className="flex items-center">
+                <span className="text-xs font-bold">₦{formatAsCurrency(item?.price)}</span>
+                <div className="flex items-center ml-auto">
+                  {item?.colors?.map(item => <ColorIndicator key={item} color={item} />)}
+                </div>
+              </div>
+            </li>
+          )
+        })}
       </ul>
 
-      <h6 className="text-lg text-white mb-1">Accessories</h6>
-      <ul className="carousel rounded-box w-full glass z-0 py-5 mb-20" >
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
 
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-        <div className="carousel-item w-2/5 inline-flex flex-col lg:w-1/5 justify-center p-1 md:p-4 mx-2">
-          <img src="/images/airpods-pro.png" alt="Product" />
-          <h4 className="text-sm mt-3 ml-3"> Airpods Pro</h4>
-          <div className="flex items-center justify-between px-3">
-            <span className="text-xs font-bold">$19.99</span>
-            <div className="flex items-center ">
-              <ColorIndicator color="#EEEDEB" />
-              <ColorIndicator color="#E8C872" />
-              <ColorIndicator color="#436850" />
-              <ColorIndicator color="#A3C9AA" />
-            </div>
-          </div>
-        </div>
-
-      </ul> */}
 
       {<ProductModal product={modalProduct} closeModal={closeModal} />}
 
