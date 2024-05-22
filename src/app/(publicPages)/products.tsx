@@ -4,7 +4,7 @@ import formatAsCurrency from "../lib/formatAsCurrency";
 import Image from "next/image";
 import ProductModal from "./productModal";
 import { useRef, useState } from "react";
-import { ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 //console.log(products);
 const ColorIndicator = ({ color = "#000000" }) => {
@@ -40,6 +40,8 @@ const Products = () => {
     name: "",
     categories: []
   });
+  
+
 
   const handleSearchPhone = (prop: string, value: string) => {
     setPhoneSearch(prevState => ({
@@ -182,12 +184,22 @@ const Products = () => {
     return categoryProducts;
   }
 
+  const categoryIsChecked = (mainCategory: "phone" | "laptop" | "accessories", category: string)=>{
+    if(mainCategory === "phone"){
+      return phoneSearch?.categories.includes(category)
+    }else if(mainCategory === "laptop"){
+      return laptopSearch.categories.includes(category)
+    }else if(mainCategory === "accessories"){
+      return accessorySearch.categories.includes(category)
+    }
+  }
+
   const generateCategoryOptions = (mainCategory: "phone" | "laptop" | "accessories") => {
     let filteredproducts = products.filter(item => item.categories.includes(mainCategory))
     let categories = getAllCategories(filteredproducts, mainCategory);
     return categories.map(item => {
       return (
-        <li onClick={() => handleSetCategorySearch(mainCategory, item)} key={item}><a className="capitalize text-gray-700 text-xs">{item}</a></li>
+        <li onClick={() => handleSetCategorySearch(mainCategory, item)} key={item}><a className={`capitalize ${categoryIsChecked(mainCategory, item) && "bg-gray-300"} text-gray-700 text-xs flex items-center`}>{item} {categoryIsChecked(mainCategory, item) && <CheckIcon className="ml-auto w-3"/>}</a></li>
       )
     })
   }
@@ -204,6 +216,8 @@ const Products = () => {
           </div>
           <ul className="flex items-center">{listCategories("phone")}</ul>
         </div>
+        <button className="hidden" >close</button>
+
 
 
         <label className="input input-bordered flex items-center gap-2 h-12 md:ml-auto w-full md:w-80 bg-transparent border border-gray-200">
@@ -239,7 +253,7 @@ const Products = () => {
 
 
 
-      <header className="flex items-center mb-3">
+      <header className="flex flex-col md:flex-row items-center mb-3">
         <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
           <div className="dropdown dropdown-bottom mb-1">
             <div tabIndex={0} role="button" className="flex items-center m-1 text-xs md:text-sm h-4">Laptops <ChevronDownIcon className="w-4 ml-1" /></div>
@@ -249,14 +263,9 @@ const Products = () => {
           </div>
           <ul className="flex items-center">{listCategories("laptop")}</ul>
         </div>
-        {/* <div className="dropdown dropdown-bottom">
-          <div tabIndex={0} role="button" className="flex items-center m-1 text-xs md:text-sm h-4">Laptops <ChevronDownIcon className="w-4 ml-1" /></div>
-          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-            {generateCategoryOptions("laptop")}
-          </ul>
-        </div> */}
+        <button className="hidden">close</button>
 
-        <label className="input input-bordered flex items-center gap-2 ml-4 h-12 md:ml-auto w-full md:w-80 bg-transparent border border-gray-200">
+        <label className="input input-bordered flex items-center gap-2 h-12 md:ml-auto w-full md:w-80 bg-transparent border border-gray-200">
           <input type="text" value={laptopSearch.name} onChange={(e) => handleSearchLaptop("name", e.target.value)} placeholder="Search Laptops" className="input w-full max-w-xs text-white text-xs" />
           <MagnifyingGlassIcon className="w-4 text-white" />
         </label>

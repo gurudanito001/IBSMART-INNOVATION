@@ -77,9 +77,9 @@ const NavBar = () => {
 
   const generateCheckoutMessage = ()=>{
     let cartData = getCartData();
-    let message = "I want to buy:"
-    cartData.forEach( (item: any) =>{
-      message += ` ${item?.quantity} unit(s) of ${item?.name},`
+    let message = `> I want to buy: `
+    cartData.forEach( (item: any, index: number) =>{
+      message += `*${item?.quantity}* unit(s) of *${item?.name}*,`
     })
 
     return message
@@ -92,7 +92,7 @@ const NavBar = () => {
       <div className="navbar-start">
         <Link href="/" className="flex items-center gap-3">
           <Image src="/images/ibsmart2.jpeg" className="rounded-full" alt="IBSMART LOGO" width={50} height={50} />
-          <span className="font-bold"> IBSMART</span>
+          <span className="font-bold text-xs"> IBSMART <br/> INNOVATION</span>
         </Link>
       </div>
 
