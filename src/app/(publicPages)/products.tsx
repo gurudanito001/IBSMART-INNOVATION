@@ -3,7 +3,7 @@ import { products, Product } from "../products";
 import formatAsCurrency from "../lib/formatAsCurrency";
 import Image from "next/image";
 import ProductModal from "./productModal";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CheckIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 //console.log(products);
@@ -41,7 +41,27 @@ const Products = () => {
     categories: []
   });
   
+  useEffect(()=>{
+    if(modalProduct?.name){
+      let el: any = document.getElementById('productModal')
+      if (el) {
+        el.showModal()
+      }
+    }else{
+      let el: any = document.getElementById('closeModalBtn');
+      if (el) {
+        el.click()
+      }
+    }
+  }, [modalProduct])
 
+  const openModal = (product: any) => {
+    setModalProduct(product);
+  }
+
+  const closeModal = () => {
+    setModalProduct(initProduct);
+  }
 
   const handleSearchPhone = (prop: string, value: string) => {
     setPhoneSearch(prevState => ({
@@ -126,21 +146,7 @@ const Products = () => {
 
 
 
-  const openModal = (product: any) => {
-    setModalProduct(product);
-    let el: any = document.getElementById('productModal')
-    if (el) {
-      el.showModal()
-    }
-  }
-
-  const closeModal = () => {
-    setModalProduct(initProduct);
-    let el: any = document.getElementById('closeModalBtn');
-    if (el) {
-      el.click()
-    }
-  }
+  
 
   const getAllCategories = (products: Product[], mainCategory: string) => {
     let categories: string[] = [];
@@ -295,7 +301,7 @@ const Products = () => {
 
 
 
-      {<ProductModal product={modalProduct} closeModal={closeModal} />}
+      {modalProduct?.name && <ProductModal product={modalProduct} closeModal={closeModal} />}
 
     </section>
   )

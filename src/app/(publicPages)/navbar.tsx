@@ -99,7 +99,7 @@ const NavBar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li><a>About Us</a></li>
-          <li><a>Products</a></li>
+          <li><a href="#products">Products</a></li>
           <li><a>Social Media</a></li>
         </ul>
       </div>
@@ -186,9 +186,9 @@ const NavBar = () => {
             <Bars3BottomRightIcon className="w-5" />
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a>About Us</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a>Social Media</a></li>
+            <li><a className="py-3 text-xs">About Us</a></li>
+            <li><a className="py-3 text-xs" href="#products">Products</a></li>
+            <li><a className="py-3 text-xs">Social Media</a></li>
           </ul>
         </div>
       </div>
