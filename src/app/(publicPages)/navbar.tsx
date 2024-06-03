@@ -171,7 +171,7 @@ const NavBar = () => {
                     <span className="font-semibold">Subtotal:</span>
                     <span className="text-lg font-bold ml-auto">₦{formatAsCurrency(getTotalAmount())}</span>
                   </div> */}
-                  <a style={{pointerEvents: getCartData().length === 0 ? "none" : "all"}} href={`https://wa.me/2348140715723?text=${generateCheckoutMessage()}`} target="_blank" className="btn btn-lg border-gray-900 text-white bg-gray-900 hover:bg-gray-950 text-sm rounded-none mt-3 w-full flex items-center">
+                  <a style={{pointerEvents: getCartData().length === 0 ? "none" : "all"}} href={`https://wa.me/2349159859599?text=${generateCheckoutMessage()}`} target="_blank" className="btn btn-lg border-gray-900 text-white bg-gray-900 hover:bg-gray-950 text-sm rounded-none mt-3 w-full flex items-center">
                     Checkout <div className="p-2 ml-auto"> ₦{formatAsCurrency(getTotalAmount())} </div>
                   </a>
                 </section>
