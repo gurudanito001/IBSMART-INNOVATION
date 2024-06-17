@@ -60,7 +60,8 @@ const ProductModal = ({product, closeModal}: {product: Product, closeModal: ()=>
                     <div key={item + index} className="carousel-item w-full flex flex-col justify-center">
                       <div id={`modalItem${index}`} className=" mb-12"> </div>
                       <Image
-                        src={`/images/${item}`}
+                        //src={`/images/${item}`}
+                        src={`${item.includes("public.blob.vercel") ? item : `/images/${item}`}`}
                         style={{ height: "400px", width: "auto", objectFit: "contain" }}
                         alt="Product Image"
                         width={500}
@@ -75,7 +76,7 @@ const ProductModal = ({product, closeModal}: {product: Product, closeModal: ()=>
                   return (
                     <Link key={item + index} href={`#modalItem${index}`} className="" shallow={true}>
                       <Image
-                        src={`/images/${item}`}
+                        src={`${item.includes("public.blob.vercel") ? item : `/images/${item}`}`}
                         style={{ height: "100px", width: "auto", objectFit: "contain" }}
                         alt="Product Image"
                         width={70}

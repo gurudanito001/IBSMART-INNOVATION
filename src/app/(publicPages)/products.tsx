@@ -1,10 +1,11 @@
 "use client"
-import { products, Product } from "../products";
+import { Product } from "../products";
 import formatAsCurrency from "../lib/formatAsCurrency";
 import Image from "next/image";
 import ProductModal from "./productModal";
 import { useEffect, useRef, useState } from "react";
 import { CheckIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
 
 //console.log(products);
 const ColorIndicator = ({ color = "#000000" }) => {
@@ -27,6 +28,7 @@ const Products = () => {
     discount: "",
     additionalInformation: ""
   }
+  const [products, setProducts] = useState<Product[]>([])
   const [modalProduct, setModalProduct] = useState(initProduct);
   const [phoneSearch, setPhoneSearch] = useState<{ name: string, categories: string[] }>({
     name: "",
@@ -40,7 +42,28 @@ const Products = () => {
     name: "",
     categories: []
   });
+
+  const fetchProducts = ()=>{
+    const options = {
+      url: `${process.env.NEXT_PUBLIC_Base_Url}/api/products`,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }
+    axios(options)
+      .then(response => {
+        console.log(response);
+        setProducts(response.data.data)
+      }).catch(error =>{
+        console.log(error)
+      })
+  }
   
+  useEffect(()=>{
+    fetchProducts();
+  }, [])
   useEffect(()=>{
     if(modalProduct?.name){
       let el: any = document.getElementById('productModal')
@@ -144,10 +167,6 @@ const Products = () => {
   }
 
 
-
-
-  
-
   const getAllCategories = (products: Product[], mainCategory: string) => {
     let categories: string[] = [];
     products.forEach(item => {
@@ -238,7 +257,7 @@ const Products = () => {
           return (
             <li key={item?.name} onClick={() => openModal(item)} className="carousel-item w-2/5 inline-flex flex-col lg:w-1/6 justify-end p-1 md:p-4 mx-2 cursor-pointer glass">
               <Image
-                src={`/images/${item?.images[0]}`}
+                src={`${item?.images[0].includes("public.blob.vercel") ? item?.images[0] : `/images/${item?.images[0]}`}`}
                 style={{ height: "200px", width: "auto", objectFit: "contain" }}
                 alt="Product Image"
                 width={300}

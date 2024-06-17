@@ -15,16 +15,6 @@ export async function GET(request: Request) {
     const jsonData = await readFile(dataFilePath);
     const data: Product[] = JSON.parse(jsonData.toString());
 
-    /* data.forEach( (product, index) =>{
-      if(!product?.id){
-        data[index] = {id: randomUUID(), ...product}
-      }
-    })
-
-    const updatedData = JSON.stringify(data);
-    await writeFile(dataFilePath, updatedData); */
-
-    
     return new NextResponse(JSON.stringify({ message: "Data fetched successfully", data}), {
       status: 200,
       headers: { "Content-Type": "application/json" },
@@ -46,7 +36,7 @@ export async function POST(request: Request) {
     let newData = await request.json(); 
     const uuid = randomUUID();
     newData = {id: uuid, ...newData};
-    data.push(newData);
+    data.unshift(newData);
     const updatedData = JSON.stringify(data);
     await writeFile(dataFilePath, updatedData);
 

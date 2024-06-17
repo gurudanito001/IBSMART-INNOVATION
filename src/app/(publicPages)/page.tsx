@@ -6,7 +6,7 @@ import Products from "./products";
 export default function Home() {
   return (
     <>
-    <NavBar/>
+    <NavBar />
     <HeroSection />
     <Products />
     </>

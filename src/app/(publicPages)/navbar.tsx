@@ -107,7 +107,7 @@ const NavBar = () => {
       <div className="navbar-end">
         <div className="drawer drawer-end w-16">
           <input id="cart-drawer" type="checkbox" className="drawer-toggle" />
-          <label htmlFor="cart-drawer" className="indicator mx-3 mt-2 cursor-pointer drawer-content z-10">
+          <label htmlFor="cart-drawer" className="indicator mx-3 mt-2 cursor-pointer drawer-content z-10" suppressHydrationWarning={true}>
             {getCartData().length ? <span className="indicator-item badge border-secondary bg-secondary text-xs rounded-2xl text-white">{getCartData().length}</span> : ""}
             <ShoppingCartIcon className="w-6" />
           </label>
@@ -139,9 +139,8 @@ const NavBar = () => {
                         <div key={item?.name} className="flex items-center hover:bg-gray-300 px-3">
                           <figure>
                             <Image
-                              className=""
                               alt={`${item?.name} image`}
-                              src={`/images/${item?.images[0]}`}
+                              src={`${item?.images[0].includes("public.blob.vercel") ? item?.images[0] : `/images/${item?.images[0]}`}`}
                               style={{ height: "70px", width: "auto", objectFit: "contain" }}
                               width={70}
                               height={70} />
@@ -179,7 +178,6 @@ const NavBar = () => {
           </div>
         </div>
 
-        {/* <a className="btn bg-white border-gray-950 text-gray-950 hover:text-white text-sm rounded-none w-28 ml-5 hover:bg-gray-950 hidden md:inline-flex">Buy Now</a> */}
 
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost px-3 lg:hidden">
