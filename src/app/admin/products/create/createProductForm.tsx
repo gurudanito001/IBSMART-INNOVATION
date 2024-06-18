@@ -23,7 +23,7 @@ const CreateProductForm = () =>{
   },[])
 
   const fetchProducts = ()=>{
-    axios.get(`${process.env.NEXT_PUBLIC_Base_Url}/api/products`)
+    axios.get(`/api/products`)
       .then( (res)=>{
         console.log( res.data)
         setProducts(res.data.data)
@@ -164,7 +164,7 @@ const CreateProductForm = () =>{
 
   const postProduct = (data: Product)=>{
     const options = {
-      url: `${process.env.NEXT_PUBLIC_Base_Url}/api/products`,
+      url: `/api/products`,
       method: 'POST',
       headers: {
         'Accept': 'application/json',

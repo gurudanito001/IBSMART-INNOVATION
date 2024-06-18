@@ -45,7 +45,7 @@ const Products = () => {
 
   const fetchProducts = ()=>{
     const options = {
-      url: `${process.env.NEXT_PUBLIC_Base_Url}/api/products`,
+      url: `/api/products`,
       method: 'GET',
       headers: {
         'Accept': 'application/json',
