@@ -13,12 +13,23 @@ const config: Config = {
         '13': 'repeat(13, minmax(0, 1fr))',
       },
       colors: {
-        "primary": "#1E242F",
-        "secondary": "#A91D3A",
-        /* "accent": "#c1246b",
-        "neutral": "#ffffff9e", */
-        "base": "#EEEEEE",
+        "primary": "#2B586B",
+        "secondary": "#375C71",
+        "accent": "#BA69D7",
+        "neutral": "#EBEBEB",
+        "base": "rgba(55, 92, 113, 0.15)",
+        "overlay": "rgba(0, 0, 0, 0.7)"
       },
+      maxHeight: {
+        "550": "550px",
+        "600": "600px",
+        "850": "850px"
+      },
+      maxWidth: {
+        "550": "550px",
+        "600": "600px",
+        "800": "800px"
+      }
     },
     keyframes: {
       shimmer: {
