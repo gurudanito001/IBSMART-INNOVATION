@@ -40,19 +40,6 @@ const NavBar = () => {
           </ul>
         </div>
       </div>
-
-      {/* <div className="navbar-end">
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost px-3 lg:hidden">
-            <Bars3BottomRightIcon className="w-5" />
-          </div>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a className="py-3 text-xs">About Us</a></li>
-            <li><a className="py-3 text-xs" href="#products">Products</a></li>
-            <li><a className="py-3 text-xs">Social Media</a></li>
-          </ul>
-        </div>
-      </div> */}
     </nav>
   )
 }
