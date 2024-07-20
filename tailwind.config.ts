@@ -19,6 +19,9 @@ const config: Config = {
         "neutral": "#ffffff9e", */
         "base": "#EEEEEE",
       },
+      maxHeight: {
+        "800": "800px"
+      }
     },
     keyframes: {
       shimmer: {

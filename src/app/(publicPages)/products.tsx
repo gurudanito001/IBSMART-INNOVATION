@@ -4,7 +4,7 @@ import formatAsCurrency from "../lib/formatAsCurrency";
 import Image from "next/image";
 import ProductModal from "./productModal";
 import { useEffect, useRef, useState } from "react";
-import { CheckIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 
 //console.log(products);
@@ -145,7 +145,7 @@ const Products = () => {
 
     return categories?.map(item => {
       return (
-        <li key={item} className="mr-2 glass text-white text-xs flex items-center rounded-xl px-2">{item} <XMarkIcon onClick={() => removeCategory(mainCategory, item)} className="w-4 ml-3 text-red-600 cursor-pointer" /></li>
+        <li key={item} className="mr-2 glass text-primary text-xs flex items-center rounded-xl px-2">{item} <XMarkIcon onClick={() => removeCategory(mainCategory, item)} className="w-4 ml-3 text-red-600 cursor-pointer" /></li>
       )
     })
   }
@@ -230,32 +230,16 @@ const Products = () => {
   }
 
   return (
-    <section id="products" className="bg-primary py-8 px-3 lg:px-20 overflow-x-hidden">
-      <header className="flex flex-col md:flex-row items-center mb-3">
-        <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
-          <div className="dropdown dropdown-bottom mb-1">
-            <div tabIndex={0} role="button" className="flex items-center m-1 text-xs md:text-sm h-4">Phones <ChevronDownIcon className="w-4 ml-1" /></div>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-              {generateCategoryOptions("phone")}
-            </ul>
-          </div>
-          <ul className="flex items-center">{listCategories("phone")}</ul>
-        </div>
-        <button className="hidden" >close</button>
-
-
-
-        <label className="input input-bordered flex items-center gap-2 h-12 md:ml-auto w-full md:w-80 bg-transparent border border-gray-200">
-          <input type="text" value={phoneSearch.name} onChange={(e) => handleSearchPhone("name", e.target.value)} placeholder="Search Phones" className="input w-full max-w-xs text-white text-xs" />
-          <MagnifyingGlassIcon className="w-4 text-white" />
-
-        </label>
+    <section id="products" className="bg-white py-8 px-3 lg:px-20 overflow-x-hidden mt-20">
+      <header className="flex items-center mb-3">
+        <h3 className="text-lg font-semibold text-primary">Phones</h3>
+        <button className="btn btn-link text-primary ml-auto">View All <ChevronRightIcon className="w-4 ml-1" /></button>
       </header>
 
       <ul className="carousel rounded-box w-full z-0 py-5 mb-20 min-h-80" >
         {getProductsOfCategory("phone")?.map(item => {
           return (
-            <li key={item?.name} onClick={() => openModal(item)} className="carousel-item w-2/5 inline-flex flex-col lg:w-1/6 justify-end p-1 md:p-4 mx-2 cursor-pointer glass">
+            <li key={item?.name} onClick={() => openModal(item)} className="carousel-item w-2/5 inline-flex flex-col lg:w-1/6 justify-end p-1 md:p-4 mx-2 cursor-pointer bg-gray-100">
               <Image
                 src={`${item?.images[0].includes("public.blob.vercel") ? item?.images[0] : `/images/${item?.images[0]}`}`}
                 style={{ height: "200px", width: "auto", objectFit: "contain" }}
@@ -263,9 +247,9 @@ const Products = () => {
                 width={300}
                 height={300}
               />
-              <h4 className="text-sm mt-3"> {item?.name} </h4>
+              <h4 className="text-sm mt-3 text-primary"> {item?.name} </h4>
               <div className="flex items-center">
-                <span className="text-xs font-bold">₦{formatAsCurrency(item?.price)}</span>
+                <span className="text-xs font-bold text-primary">₦{formatAsCurrency(item?.price)}</span>
                 <div className="flex items-center ml-auto">
                   {item?.colors?.map(item => <ColorIndicator key={item} color={item} />)}
                 </div>
@@ -278,27 +262,14 @@ const Products = () => {
 
 
 
-      <header className="flex flex-col md:flex-row items-center mb-3">
-        <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
-          <div className="dropdown dropdown-bottom mb-1">
-            <div tabIndex={0} role="button" className="flex items-center m-1 text-xs md:text-sm h-4">Laptops <ChevronDownIcon className="w-4 ml-1" /></div>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-              {generateCategoryOptions("laptop")}
-            </ul>
-          </div>
-          <ul className="flex items-center">{listCategories("laptop")}</ul>
-        </div>
-        <button className="hidden">close</button>
-
-        <label className="input input-bordered flex items-center gap-2 h-12 md:ml-auto w-full md:w-80 bg-transparent border border-gray-200">
-          <input type="text" value={laptopSearch.name} onChange={(e) => handleSearchLaptop("name", e.target.value)} placeholder="Search Laptops" className="input w-full max-w-xs text-white text-xs" />
-          <MagnifyingGlassIcon className="w-4 text-white" />
-        </label>
+      <header className="flex items-center mb-3">
+        <h3 className="text-lg font-semibold text-primary ">Laptops</h3>
+        <button className="btn btn-link text-primary ml-auto">View All <ChevronRightIcon className="w-4 ml-1" /></button>
       </header>
       <ul className="carousel rounded-box w-full z-0 py-5 mb-20 min-h-80" >
         {getProductsOfCategory("laptop")?.map(item => {
           return (
-            <li key={item?.name} onClick={() => openModal(item)} className="carousel-item w-2/5 inline-flex flex-col lg:w-1/6 justify-end p-1 md:p-4 mx-2 cursor-pointer glass">
+            <li key={item?.name} onClick={() => openModal(item)} className="carousel-item w-2/5 inline-flex flex-col lg:w-1/6 justify-end p-1 md:p-4 mx-2 cursor-pointer bg-gray-100">
               <Image
                 src={`/images/${item?.images[0]}`}
                 style={{ height: "200px", width: "auto", objectFit: "contain" }}
@@ -306,9 +277,9 @@ const Products = () => {
                 width={300}
                 height={300}
               />
-              <h4 className="text-sm mt-3"> {item?.name} </h4>
+              <h4 className="text-sm mt-3 text-primary"> {item?.name} </h4>
               <div className="flex items-center">
-                <span className="text-xs font-bold">₦{formatAsCurrency(item?.price)}</span>
+                <span className="text-xs font-bold text-primary">₦{formatAsCurrency(item?.price)}</span>
                 <div className="flex items-center ml-auto">
                   {item?.colors?.map(item => <ColorIndicator key={item} color={item} />)}
                 </div>

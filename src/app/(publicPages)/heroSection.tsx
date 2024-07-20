@@ -6,14 +6,54 @@ import Image from "next/image";
 import { useState } from "react";
 import generateRandomId from "../lib/generateRandomId";
 import { useRouter } from "next/navigation";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "@ant-design/react-slick";
 
 
 
 
 const HeroSection = () => {
+
+  
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 900,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+  
+
+  const images = [
+    `bg-[url('/images/laptop.webp')]`,
+    `bg-[url('/images/phone.jpg')]`,
+    `bg-[url('/images/tablet.jpg')]`,
+    `bg-[url('/images/accessory.jpg')]`,
+  ]
+  const titles = ["Laptops", "Phones", "Tablets", "Accessories"]
+
+  const listImages = ()=>{
+    return images.map( (item: string, index) =>{
+      return (
+        <section key={item} className={`carousel-item ${images[index]} bg-cover bg-center bg-no-repeat h-screen max-h-800`}>
+          <h3 className="text-white font-semibold text-2xl md:text-4xl p-5 md:p-14"> {titles[index]}</h3>
+        </section> 
+      )
+    })
+  }
+
+
+
+
   const router = useRouter();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [productIndex, setProductIndex] = useState(0)
+
+
 
   const formatDescription = (description: string) =>{
     if(showFullDescription){
@@ -38,8 +78,21 @@ const HeroSection = () => {
 
 
   return (
-    <section className="bg-base text-gray-700 grow flex items-center px-10 pb-10 lg:px-40">
-      <div className=" w-1/2 lg:pr-20 mt-auto hidden md:block">
+    <>
+    {/* <section className="bg-base text-gray-700 grow flex items-center px-10 pb-10 lg:px-40"> */}
+      <Slider {...settings}>
+        {listImages()}
+      </Slider>
+    {/* </section> */}
+      
+  </>
+  )
+}
+
+export default HeroSection;
+
+
+{/* <div className=" w-1/2 lg:pr-20 mt-auto hidden md:block">
         <h1 className="text-gray-950 font-light text-5xl">{heroProducts[productIndex].name}</h1>
         <p className=" font-extralight text-lg mt-10">
           {formatDescription(heroProducts[productIndex].description)}
@@ -88,9 +141,4 @@ const HeroSection = () => {
         <button onClick={()=>addToCart(heroProducts[productIndex])} className="btn bg-white border-gray-950 text-gray-950 hover:text-white hover:bg-gray-950 text-sm rounded-none mt-8 flex items-center mx-auto md:hidden">
           Add to Cart <div className="badge badge-lg w-8 h-8 bg-gray-950 p-2 ml-auto"> <ShoppingCartIcon className="w-6 text-white" /></div>
         </button>
-      </div>
-    </section>
-  )
-}
-
-export default HeroSection;
+      </div> */}
