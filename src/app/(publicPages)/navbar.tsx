@@ -100,6 +100,22 @@ const NavBar = () => {
         <ul className="menu menu-horizontal px-1">
           <li><a>About Us</a></li>
           <li><a href="#products">Products</a></li>
+          <li className="dropdown dropdown-hover flex flex-col">
+            <a tabIndex={0} role="button" className="">Products</a>
+            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-screen -ml-49.4vw p-2 shadow mt-12">
+              
+              <section className="grid grid-cols-1 sm:grid-cols-4 gap-3 md:gap-6 px-5 md:px-6">
+                <div className="h-60 bg-[url('/images/zflip-mobile-nobg.png')] bg-no-repeat bg-contain bg-center border rounded-lg bg-primary">
+                </div>
+                <div className="h-60 bg-[url('/images/tablet-desktop-nobg.png')] bg-no-repeat bg-contain bg-center border rounded-lg bg-primary">
+                </div>
+                <div className="h-60 bg-[url('/images/macbook-mobile-nobg.png')] bg-no-repeat bg-contain bg-center border rounded-lg bg-primary">
+                </div>
+                <div className="h-60 bg-[url('/images/airpods-pro-nobg.png')] bg-no-repeat bg-contain bg-center border rounded-lg bg-primary">
+                </div>
+              </section>
+            </ul>
+          </li>
           <li><a>Social Media</a></li>
         </ul>
       </div>

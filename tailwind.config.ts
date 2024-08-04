@@ -14,6 +14,7 @@ const config: Config = {
       },
       colors: {
         "primary": "#1E242F",
+        "primary2": "rgba(30, 36, 47, 0.8)",
         "secondary": "#A91D3A",
         /* "accent": "#c1246b",
         "neutral": "#ffffff9e", */
@@ -21,6 +22,14 @@ const config: Config = {
       },
       maxHeight: {
         "800": "800px"
+      },
+      margin: {
+        "46vw": "46vw",
+        "47vw": "47vw",
+        "48vw": "48vw",
+        "49vw": "49vw",
+        "49.4vw": "49.4vw",
+        "50vw": "50vw"
       }
     },
     keyframes: {

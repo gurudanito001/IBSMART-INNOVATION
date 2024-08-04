@@ -79,11 +79,11 @@ const HeroSection = () => {
 
   return (
     <>
-    {/* <section className="bg-base text-gray-700 grow flex items-center px-10 pb-10 lg:px-40"> */}
-      <Slider {...settings}>
+    <section className=" w-screen overflow-hidden h-screen max-h-800">
+      <Slider {...settings} className="h-full">
         {listImages()}
       </Slider>
-    {/* </section> */}
+    </section>
       
   </>
   )
