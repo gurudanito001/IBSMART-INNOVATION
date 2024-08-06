@@ -123,7 +123,7 @@ const NavBar = () => {
       <div className="navbar-end">
         <div className="drawer drawer-end w-16">
           <input id="cart-drawer" type="checkbox" className="drawer-toggle" />
-          <label htmlFor="cart-drawer" className="indicator mx-3 mt-2 cursor-pointer drawer-content z-10" suppressHydrationWarning={true}>
+          <label htmlFor="cart-drawer" className="indicator mx-3 cursor-pointer drawer-content z-10" suppressHydrationWarning={true}>
             {getCartData().length ? <span className="indicator-item badge border-secondary bg-secondary text-xs rounded-2xl text-white">{getCartData().length}</span> : ""}
             <ShoppingCartIcon className="w-6" />
           </label>
@@ -195,7 +195,7 @@ const NavBar = () => {
         </div>
 
 
-        <div className="dropdown dropdown-end">
+        {/* <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost px-3 lg:hidden">
             <Bars3BottomRightIcon className="w-5" />
           </div>
@@ -204,6 +204,47 @@ const NavBar = () => {
             <li><a className="py-3 text-xs" href="#products">Products</a></li>
             <li><a className="py-3 text-xs">Social Media</a></li>
           </ul>
+        </div> */}
+        <div className="dropdown dropdown-end lg:hidden z-10">
+          <div className="drawer drawer-end">
+            <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+            <div className="drawer-content">
+              {/* Page content here */}
+              <label htmlFor="my-drawer-4" className="drawer-button btn btn-ghost px-3">
+                
+                  <Bars3BottomRightIcon className="w-5" />
+              </label>
+            </div>
+            <div className="drawer-side">
+              <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
+              <ul className="menu min-h-full w-full max-w-md px-0 py-0 bg-white text-primary">
+                {/* Sidebar content here */}
+                <li className="h-16 m-0 flex">
+                  <Link href="/" className="flex items-center gap-3">
+                    <Image src="/images/ibsmart2.jpeg" className="rounded-full" alt="IBSMART LOGO" width={50} height={50} />
+                    <span className="font-bold text-xs"> IBSMART <br /> INNOVATION</span>
+                  </Link>
+                  <label htmlFor="my-drawer-4" aria-label="close sidebar" className="inline-block ml-auto my-auto">
+                    <XMarkIcon className="w-6 text-primary p-0" />
+                  </label>
+                </li>
+
+                <li className="px-5"><a className="py-3 text-lg font-semibold mt-4">About Us</a></li>
+                <li className="px-5 text-lg font-semibold">
+                  <details open>
+                    <summary>Products</summary>
+                    <ul>
+                      <li className="text-sm font-medium"><a>Laptops</a></li>
+                      <li className="text-sm font-medium"><a>Phones</a></li>
+                      <li className="text-sm font-medium"><a>Tablets</a></li>
+                      <li className="text-sm font-medium"><a>Accessories</a></li>
+                    </ul>
+                  </details>
+                </li>
+                <li className="px-5 text-lg font-semibold"><a className="py-3">Social Media</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

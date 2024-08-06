@@ -26,6 +26,7 @@ const config: Config = {
         "base": "#EEEEEE",
       },
       maxHeight: {
+        "650": "650px",
         "800": "800px"
       },
       margin: {
