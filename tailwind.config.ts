@@ -16,6 +16,11 @@ const config: Config = {
         "primary": "#1E242F",
         "primary2": "rgba(30, 36, 47, 0.8)",
         "secondary": "#A91D3A",
+        "app-peach": "rgba(249,186,168,255)",
+        "app-yellow": "rgba(224,191,58,255)",
+        "app-orange": "rgba(253,108,71,255)",
+        "app-dullYellow": "rgba(204,175,131,255)",
+        "overlay": "rgba(0,0,0,0.8)",
         /* "accent": "#c1246b",
         "neutral": "#ffffff9e", */
         "base": "#EEEEEE",
@@ -24,7 +29,9 @@ const config: Config = {
         "800": "800px"
       },
       margin: {
+        "45vw": "45vw",
         "46vw": "46vw",
+        "46.5vw": "46.5vw",
         "47vw": "47vw",
         "48vw": "48vw",
         "49vw": "49vw",

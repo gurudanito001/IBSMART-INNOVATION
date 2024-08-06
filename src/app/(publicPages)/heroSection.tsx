@@ -29,19 +29,67 @@ const HeroSection = () => {
   
 
   const images = [
-    `bg-[url('/images/laptop.webp')]`,
-    `bg-[url('/images/phone.jpg')]`,
-    `bg-[url('/images/tablet.jpg')]`,
-    `bg-[url('/images/accessory.jpg')]`,
+    `bg-app-peach bg-[url('/images/laptop.png')]`,
+    `bg-app-orange bg-[url('/images/phone.jpg')]`,
+    `bg-app-dullYellow bg-blend-darken bg-[url('/images/tablet.jpg')] bg-cover md:bg-contain`,
+    `bg-app-yellow bg-[url('/images/accessory.jpg')]`,
+  ]
+  const bgs = [
+    `bg-app-peach`,
+    `bg-app-orange`,
+    `bg-app-dullYellow bg-blend-darken`,
+    `bg-app-yellow`,
   ]
   const titles = ["Laptops", "Phones", "Tablets", "Accessories"]
+{/* <section key={item} className={`carousel-item ${images[index]} bg-cover bg-center bg-no-repeat h-screen max-h-800`}>
+          <h3 className="text-white font-semibold text-2xl md:text-4xl p-5 md:p-14"> {titles[index]}</h3>
+        </section>  */}
 
   const listImages = ()=>{
     return images.map( (item: string, index) =>{
       return (
-        <section key={item} className={`carousel-item ${images[index]} bg-cover bg-center bg-no-repeat h-screen max-h-800`}>
-          <h3 className="text-white font-semibold text-2xl md:text-4xl p-5 md:p-14"> {titles[index]}</h3>
-        </section> 
+        <div key={item} className={`carousel-item h-screen max-h-800`}>
+          <div className="w-full h-full flex flex-col lg:flex-row">
+            <article className={`h-full w-full ${bgs[index]} flex flex-col justify-center p-5 md:pl-10 lg:pl-14`}>
+              { index === 0 &&
+                <>
+                  <h3 className="text-2xl lg:text-3xl xl:text-4xl text-primary font-semibold mb-5 bg-gradient-to-r max-w-550 from-primary to-red-400 text-transparent bg-clip-text">Boost your productivity <br/> with a wide range of laptop devices.</h3>
+                  <p className="text-gray-700 text-lg lg:text-xl font-light mb-7 max-w-3xl">What would you like to do with your laptop? Zoom meetings, Emails, Music and Movies, Microsoft Suite, Graphic design, Software development.
+                  Whatever the task, we offer expert advice on which device would be perfect for your workflow.</p>
+                  <button className="btn bg-primary border-primary text-white max-w-40">Shop Now</button>
+                </>
+              }
+
+              {index === 1 &&
+                <>
+                  <h3 className="text-2xl lg:text-3xl xl:text-4xl text-primary font-semibold mb-5 bg-gradient-to-r max-w-550 from-primary to-indigo-700 text-transparent bg-clip-text">Get quality smartphones <br/>guaranteed to last at affordable prices  <br /></h3>
+                  <p className="text-gray-700 text-lg lg:text-xl font-light mb-7 max-w-3xl">We sell a wide range of smartphones, from IOS to Android, brand new to used phones imported from the US and Europe.
+                  All our smartphones come in good working condition with up to 1 year warranty.</p>
+                  <button className="btn bg-primary border-primary text-white max-w-40">Shop Now</button>
+                </>
+              }
+
+              {index === 2 &&
+                <>
+                  <h3 className="text-2xl lg:text-3xl xl:text-4xl text-primary font-semibold mb-5 bg-gradient-to-r max-w-550 from-primary to-blue-800 text-transparent bg-clip-text">How big do you like your display? <br />No worries, we love a bigger display too.  <br /></h3>
+                  <p className="text-gray-700 text-lg lg:text-xl font-light mb-7 max-w-3xl">Would you like a tablet for your kids or work and task management? We always have a perfect tablet for you. From Convertible laptops to iPads and Android tablets, we always have one that suits your needs.</p>
+                  <button className="btn bg-primary border-primary text-white max-w-40">Shop Now</button>
+                </>
+              }
+
+              {index === 3 &&
+                <>
+                  <h3 className="text-2xl lg:text-3xl xl:text-4xl text-primary font-semibold mb-5 bg-gradient-to-r max-w-550 from-primary to-teal-700 text-transparent bg-clip-text">Enhance your style <br />and Connectivity with our accessories </h3>
+                  <p className="text-gray-700 text-lg lg:text-xl font-light mb-7 max-w-3xl">From Smartwatches to headphones and Bluetooth speakers. We sell all types of devices to connect with and support your smart devices. We get the best accessories at the most affordable prices on the market.</p>
+                  <button className="btn bg-primary border-primary text-white max-w-40">Shop Now</button>
+                </>
+              }
+            </article>
+            <figure className={`h-full w-full ${images[index]} bg-no-repeat bg-contain bg-bottom md:bg-center`}>
+
+            </figure>
+          </div>
+        </div>
       )
     })
   }
@@ -78,14 +126,12 @@ const HeroSection = () => {
 
 
   return (
-    <>
-    <section className=" w-screen overflow-hidden h-screen max-h-800">
+    <section className="w-screen overflow-x-clip h-screen max-h-800">
       <Slider {...settings} className="h-full">
         {listImages()}
       </Slider>
     </section>
       
-  </>
   )
 }
 
