@@ -1,19 +1,23 @@
+"use client"
+
 import NavBar from "../../navbar";
 import Footer from "../../footer";
+import useAnalytics from '@/app/hooks/useAnalytics'
 
 
 export default function Page() {
-
+  useAnalytics();
   return (
     <main className="bg-white text-black flex flex-col">
       <NavBar />
-      <article className=" w-full max-w-screen-lg mx-auto my-14">
-        <h1 className="font-semibold text-4xl">ABOUT IBSMART INNOVATION</h1>
-        <h4 className="mt-7 text-gray-700 text-xl font-semibold">Who are we</h4>
-        <div className="h-72 w-auto border bg-[url('/images/who-are-we.png')] bg-no-repeat bg-contain bg-center bg-gray-400">
+      <article className=" w-full max-w-screen-lg px-5 md:px-12 mx-auto my-14 text-lg">
+        <h1 className="font-semibold text-2xl md:text-4xl mb-5">ABOUT IBSMART INNOVATION</h1>
+        <div className="h-80 w-auto border bg-[url('/images/who-are-we.png')] bg-no-repeat bg-contain bg-center bg-gray-400">
         </div>
+        <h4 className="mt-7 text-gray-700 text-xl font-semibold mb-3">Who are we</h4>
+        
 
-        <p className="text-lg mt-3">
+        <p>
           IBSMART Innovation is a tech brand that aims to ease the process of purchasing quality gadgets. For a long time, we have maintained the slogan “We are a team of tech enthusiasts passionate about bringing quality tech gadgets to your household”.  We always aim to keep the quality of the products that we sell high while making sure it is affordable. We will never compromise on any of these values.
         </p>
 
@@ -23,7 +27,10 @@ export default function Page() {
         </p>
 
 
-        <h4 className="mt-7 text-gray-700 text-xl font-semibold">What products do we deal in</h4>
+        <h4 className="mt-7 text-gray-700 text-xl font-semibold mb-3">What products do we deal in</h4>
+
+        <div className="h-80 w-auto border bg-[url('/images/products.png')] bg-no-repeat bg-contain bg-center bg-gray-400">
+        </div>
         <p className="mt-3">We basically deal in tech products. Tech is a wide and ever-expanding field, so it encompasses a wide range of products. Here are some categories we mainly deal in:</p>
 
         <ul className="mt-3 list-disc px-5">
@@ -35,12 +42,14 @@ export default function Page() {
         </ul>
 
 
-        <h4 className="mt-7 text-gray-700 text-xl font-semibold">What are our core values</h4>
+        <h4 className="mt-7 text-gray-700 text-xl font-semibold mb-3">What are our core values</h4>
+        <div className="h-80 w-auto border bg-[url('/images/core-values.png')] bg-no-repeat bg-contain bg-center bg-gray-400">
+        </div>
         <p className="mt-3">Here are our core values</p>
 
         <ul className="mt-3 list-disc px-5">
           <li>Prioritize customer satisfaction</li>
-          <li>Good quality goods only</li>
+          <li>Good quality products only</li>
           <li>Affordable prices</li>
           <li>Honesty</li>
           <li>Accountability</li>
