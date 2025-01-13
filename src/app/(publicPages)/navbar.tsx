@@ -99,6 +99,7 @@ const NavBar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li><Link href="/blog/introduction-to-ibsmart-innovation">About Us</Link></li>
+          <li className="px-5"><Link href="/blog">Blog</Link></li>
           <li className="dropdown dropdown-hover flex flex-col">
             <a tabIndex={0} role="button" className="">Products</a>
             <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-screen lg:-ml-45vw xl:-ml-46.5vw p-2 shadow mt-12">
@@ -228,7 +229,8 @@ const NavBar = () => {
                   </label>
                 </li>
 
-                <li className="px-5"><a className="py-3 text-lg font-semibold mt-4">About Us</a></li>
+                <li className="px-5"><Link href="/blog/introduction-to-ibsmart-innovation">About Us</Link></li>
+                <li className="px-5"><Link href="/blog">Blog</Link></li>
                 <li className="px-5 text-lg font-semibold">
                   <details open>
                     <summary>Products</summary>
