@@ -9,7 +9,7 @@ import Link from "next/link";
 const ArticleCard = ({imageUrl, title, url}: {imageUrl: string, title: string, url: string})=> {
   return (
     <Link href={`/blog${url}`} className="card bg-base-100 shadow-xl">
-      <figure className="border">
+      <figure className="border h-56 bg-slate-400">
         <Image
           className="max-w-full"
           src={imageUrl}
@@ -34,6 +34,7 @@ export default function Page() {
       <section className="w-full max-w-screen-xl grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5 md:px-12 mx-auto my-14 text-lg">
           <ArticleCard imageUrl="/images/ibsmart2.jpeg" title="Introduction to Ibsmart Innovation" url="/introduction-to-ibsmart-innovation" />
           <ArticleCard imageUrl="/images/processor-thumbnail.jpg" title="Processors and Computer Performance" url="/processors-and-computer-performance" />
+          <ArticleCard imageUrl="/images/laptop-series.avif" title="Popular laptops and their series" url="/laptop-series" />
       </section>
       <Footer />
     </main>
