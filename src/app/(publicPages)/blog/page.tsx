@@ -11,7 +11,7 @@ const ArticleCard = ({imageUrl, title, url}: {imageUrl: string, title: string, u
     <Link href={`/blog${url}`} className="card bg-base-100 shadow-xl">
       <figure className="border h-56 bg-slate-400">
         <Image
-          className=" h-full object-cover"
+          className=" h-full w-full object-cover"
           src={imageUrl}
           alt="Article Image"
           width={300}
