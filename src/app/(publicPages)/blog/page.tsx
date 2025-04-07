@@ -11,7 +11,7 @@ const ArticleCard = ({imageUrl, title, url}: {imageUrl: string, title: string, u
     <Link href={`/blog${url}`} className="card bg-base-100 shadow-xl">
       <figure className="border h-56 bg-slate-400">
         <Image
-          className="max-w-full"
+          className=" h-full object-cover"
           src={imageUrl}
           alt="Article Image"
           width={300}
@@ -35,6 +35,7 @@ export default function Page() {
           <ArticleCard imageUrl="/images/ibsmart2.jpeg" title="Introduction to Ibsmart Innovation" url="/introduction-to-ibsmart-innovation" />
           <ArticleCard imageUrl="/images/processor-thumbnail.jpg" title="Processors and Computer Performance" url="/processors-and-computer-performance" />
           <ArticleCard imageUrl="/images/laptop-series.avif" title="Popular laptops and their series" url="/laptop-series" />
+          <ArticleCard imageUrl="/images/slow-laptop-user.jpg" title="Why Your Laptop Gets Slower" url="/why-your-laptop-gets-slower" />
       </section>
       <Footer />
     </main>
