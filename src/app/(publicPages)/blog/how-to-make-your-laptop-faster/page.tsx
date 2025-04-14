@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import NavBar from "../../navbar";
 import Footer from "../../footer";
-//import useAnalytics from '@/app/hooks/useAnalytics'
 
 export const metadata: Metadata = {
   title: "How to Make Your Computer Faster: Quick Fixes and Long-Term Solutions",
@@ -26,117 +25,106 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function Page() {
-  //useAnalytics();
   return (
     <main className="bg-white text-black flex flex-col">
       <NavBar />
-      <article className=" w-full max-w-screen-lg px-5 md:px-12 mx-auto my-14 text-lg">
-        <h1 className="font-semibold text-2xl md:text-4xl mb-5">How to Make Your Computer Faster: Quick Fixes and Long-Term Solutions</h1>
-        <div className="hidden sm:block h-[500px] w-full border bg-[url('/images/fast-laptop-happy-children.jpg')] bg-no-repeat bg-cover bg-center">
-        </div>
-        <div className="sm:hidden h-80 w-auto bg-[url('/images/fast-laptop-happy-children.jpg')] bg-no-repeat bg-cover bg-center">
-        </div>
+      <article className="w-full max-w-screen-lg px-5 md:px-12 mx-auto my-14 text-lg">
+        <h1 className="font-semibold text-2xl md:text-4xl mb-5">
+          How to Make Your Computer Faster: Quick Fixes and Long-Term Solutions
+        </h1>
+        <div className="hidden sm:block h-[500px] w-full border bg-[url('/images/fast-laptop-happy-children.jpg')] bg-no-repeat bg-cover bg-center" />
+        <div className="sm:hidden h-80 w-auto bg-[url('/images/fast-laptop-happy-children.jpg')] bg-no-repeat bg-cover bg-center" />
+
         <p className="mt-8 font-light">
           If your laptop or desktop has started to feel sluggish, you&apos;re not alone. In our last post, we broke down why computers slow down over time. Now, let&apos;s talk about how to speed things back up.
         </p>
 
         <h3 className="text-xl font-bold mt-5">🔧 Short-Term Fixes (Quick Wins)</h3>
-        <p>These are things you can do right now to see a noticeable boost in performance:</p>
+        <p>Here are some things you can do right now to see a noticeable boost in performance:</p>
 
         <section className="mt-8">
-          <strong>1. Close Unnecessary Background Apps</strong> <br/>
+          <strong>1. Close Unnecessary Background Apps</strong> <br />
 
-          <p><span>On Windows:</span> Open Task Manager (Click on the windows icon and search for task manager, then open it). This will give you a list of all the apps using your computer resources like CPU, storage and ram. It will also show you what percentage each of them is using and which one is using the most resources. You can then close those apps from the Task Manager.</p>
+          <p><span>On Windows:</span> Open Task Manager (click the Windows icon and search for &quot;Task Manager&quot;). You&apos;ll see a list of apps using your computer&apos;s resources like CPU, storage, and RAM. It also shows the percentage each one is using. You can close resource-hogging apps directly from Task Manager.</p>
 
-          <p><span>On Mac:</span> Open Activity Monitor (Hold down the command key and click on spacebar to open the app search, then search for Activity Monitor ). Just like in windows you also will see a list of apps listed according to how much resources they are consuming. Click on any of the apps and you will be able to close them to free up resources</p>
+          <p><span>On Mac:</span> Open Activity Monitor (press <code>Command + Space</code> and search for &quot;Activity Monitor&quot;). Just like in Windows, you&apos;ll see a list of apps sorted by resource usage. Click on any app to close it and free up resources.</p>
         </section>
 
         <p className="mt-5">
-          <strong>2. Restart Your Computer</strong> <br/>
-          Though it sounds basic, but restarting can clear memory and stop background processes that are slowing things down. Restarting your device will solve over 90% of the issues associated with a slow computer.
+          <strong>2. Restart Your Computer</strong> <br />
+          It may sound basic, but restarting clears memory and stops background processes that are slowing things down. It solves over 90% of issues associated with a slow computer.
         </p>
 
         <p className="mt-5">
-          <strong>3. Clear Your Browser Tabs</strong> <br/>
-          Too many browser tabs eat up your RAM fast. A lot of professional (including me) are very reluctant to tabs or pages because that page may contain valuable information they hope to use at a later time. There are alternative to keeping the tab open. You could bookmark the page in the browser or save the page in a read-later app like Pocket.
+          <strong>3. Clear Your Browser Tabs</strong> <br />
+          Too many open tabs eat up RAM quickly. Many professionals (myself included) are reluctant to close tabs because they might contain valuable information. But there are alternatives: bookmark the page or save it to a read-later app like Pocket.
         </p>
-
 
         <section className="mt-5">
-          <strong>4. Disable Startup Programs </strong> <br/>
-            You can prevent unnecessary apps from launching at startup.
+          <strong>4. Disable Startup Programs</strong> <br />
+          Prevent unnecessary apps from launching at startup.
 
-            <p><span>On Windows:</span> <code>Ctrl + Shift + Esc</code> &gt; Startup tab</p>
+          <p><span>On Windows:</span> <code>Ctrl + Shift + Esc</code> → Startup tab</p>
+          <p><span>On Mac:</span> System Settings → Users & Groups → Login Items</p>
 
-            <p><span>On Mac:</span> System Settings &gt; Users & Groups &gt; Login Items</p>
-            You will then be able to see the list of programs that launch when your computer starts up, then you can disable them.
+          You&apos;ll see the list of programs that launch at startup. Disable the ones you don&apos;t need.
         </section>
 
         <p className="mt-5">
-          <strong>5. Free Up Disk Space</strong> <br/>
-          Over time, your computer accumulates files you no longer need — old downloads, unused apps, duplicate files, and large videos or documents you forgot about. Freeing up space on your hard drive can significantly improve performance, especially if your drive is nearing capacity. On Windows, you can use the built-in Disk Cleanup tool to remove temporary files, system cache, and other clutter. On a Mac, the Storage Management feature helps you review and delete unnecessary files. Don&apos;t forget to empty your recycle bin or trash folder to actually reclaim the space.
+          <strong>5. Free Up Disk Space</strong> <br />
+          Your computer accumulates unused files over time—old downloads, unused apps, duplicates, and large forgotten media. Freeing up space improves performance, especially if your drive is nearly full. On Windows, use Disk Cleanup. On Mac, use the Storage Management tool. Don&apos;t forget to empty your Recycle Bin or Trash folder!
         </p>
 
         <p className="mt-5">
-          <strong>6. Clear Cache and Temporary Files</strong> <br/>
-          Cache and temp files are meant to speed things up, but over time they can do the opposite. These files can grow in size and start to weigh your system down. Clearing them periodically helps your computer run more efficiently. You can use trusted tools like CCleaner on Windows or CleanMyMac on macOS to automate the cleanup process. Alternatively, both operating systems offer built-in ways to manually clear browser caches, system logs, and temporary files.
+          <strong>6. Clear Cache and Temporary Files</strong> <br />
+          Cache and temp files are designed to speed things up, but over time they do the opposite. Tools like CCleaner (Windows) or CleanMyMac (macOS) help automate cleanup. Both operating systems also let you manually clear system and browser caches.
         </p>
 
         <p className="mt-5">
-          <strong>7. Reduce Visual Effects</strong> <br/>
-          Modern operating systems come with all sorts of visual animations and transitions to make things look sleek—but these come at a performance cost, especially on older machines. Disabling or reducing visual effects can speed up your system and make interactions feel faster. On Windows, you can access performance settings through the system&apos;s advanced settings menu and choose to adjust for best performance. On a Mac, navigate to Accessibility settings and enable options like “Reduce motion” or “Reduce transparency” to lighten the graphical load.
-        </p>
-
-
-
-        <p className="mt-5">
-          In short: your laptop isn&apos;t getting lazy—it&apos;s just overloaded. A little cleanup goes a long way in helping it feel new again.
-
-          In the next article, we&apos;ll share practical ways to improve your computer&apos;s speed—both in the short term and the long run.
-        </p>
-
-
-        <h3 className="text-xl font-bold mt-5">🚀 Long-Term Strategies (For Consistent Speed).</h3>
-        <p>These tips take a bit more time or money—but they keep your computer fast and responsive in the long haul.</p>
-
-
-        <p className="mt-5">
-          <strong>1. Upgrade Your RAM</strong> <br/>
-          If your computer constantly feels sluggish while multitasking, it might be running out of memory. Upgrading your RAM gives your machine more room to breathe, especially when handling multiple applications or browser tabs. This is one of the most effective and affordable hardware upgrades. Most laptops and desktops allow for easy RAM expansion—just make sure you purchase the correct type compatible with your system.
-        </p>
-        
-
-        <p className="mt-5">
-          <strong>2. Switch to an SSD</strong> <br/>
-          Traditional hard drives (HDDs) are significantly slower than solid-state drives (SSDs). Replacing your HDD with an SSD is a game-changer when it comes to boot times, file access, and overall responsiveness. SSDs have no moving parts, which also means they&apos;re more durable and energy-efficient. Many users report their old computers feeling brand new after making the switch. Whether you&apos;re upgrading an old machine or buying a new one, always opt for an SSD when possible.
+          <strong>7. Reduce Visual Effects</strong> <br />
+          Visual animations and transitions look nice but can slow older systems. Disabling them helps improve speed. On Windows, adjust for best performance in system settings. On Mac, go to Accessibility settings and enable “Reduce motion” and “Reduce transparency.”
         </p>
 
         <p className="mt-5">
-          <strong>3. Keep Software Updated </strong> <br/>
-          Software updates don&apos;t just bring new features—they also include performance enhancements, security patches, and bug fixes. Keeping your operating system, drivers, and applications up to date ensures everything runs smoothly and securely. Outdated software can slow your system down or cause unexpected errors. Set your OS to update automatically or check manually every few weeks to make sure you&apos;re not missing critical updates.
+          In short: your laptop isn&apos;t getting lazy—it&apos;s just overloaded. A little cleanup goes a long way in making it feel new again.
+          In the next article, we&apos;ll share even more practical ways to boost your computer&apos;s speed—short-term and long-term.
+        </p>
+
+        <h3 className="text-xl font-bold mt-5">🚀 Long-Term Strategies (For Consistent Speed)</h3>
+        <p>These tips may take more time or money—but they help keep your computer fast and responsive for the long haul.</p>
+
+        <p className="mt-5">
+          <strong>1. Upgrade Your RAM</strong> <br />
+          If your system struggles with multitasking, it may be running low on memory. Upgrading RAM gives your machine more room to breathe. It&apos;s one of the most affordable and effective upgrades, just make sure it&apos;s compatible with your device.
         </p>
 
         <p className="mt-5">
-          <strong>4. Perform Regular Maintenance</strong> <br/>
-          Think of your computer like a car — it needs occasional tune-ups. Regularly running disk checks, uninstalling unused software, scanning for malware, and managing startup programs will keep things running efficiently. You can set up a maintenance schedule once a month to cover these tasks. Automating some of these with trusted maintenance tools can also help take the guesswork out of it.
+          <strong>2. Switch to an SSD</strong> <br />
+          Replacing a traditional hard drive (HDD) with a solid-state drive (SSD) drastically improves boot time, file access, and responsiveness. SSDs are also more durable and energy-efficient. It&apos;s one of the best upgrades you can make.
         </p>
 
         <p className="mt-5">
-          <strong>5. Consider a Fresh Install</strong> <br/>
-          If all else fails and your system still feels bloated or unstable, performing a clean installation of your operating system can provide a fresh start. Over time, systems can accumulate junk files, conflicting settings, and broken registry entries. A fresh install clears all of that out and lets you start from scratch. Just remember to back up all your files before doing this, and make a list of essential apps to reinstall afterward.
+          <strong>3. Keep Software Updated</strong> <br />
+          Updates don&apos;t just bring new features—they include performance boosts, bug fixes, and security patches. Keeping your OS, drivers, and apps updated helps ensure everything runs smoothly.
         </p>
 
         <p className="mt-5">
-          <strong>Conclusion: Stay Proactive, Not Reactive</strong> <br/>
-          Improving your computer&apos;s speed isn&apos;t just about quick fixes—it&apos;s about building long-term habits that keep your system healthy. While short-term solutions offer instant relief, long-term strategies ensure your machine stays fast, stable, and productive for years to come. With regular maintenance, mindful upgrades, and a proactive approach, you can extend your computer&apos;s life and enjoy a smoother, more responsive digital experience every day.
+          <strong>4. Perform Regular Maintenance</strong> <br />
+          Think of your computer like a car—it needs occasional tune-ups. Uninstall unused software, scan for malware, and manage startup programs monthly. You can even automate some tasks with trusted tools.
         </p>
 
+        <p className="mt-5">
+          <strong>5. Consider a Fresh Install</strong> <br />
+          If your system still feels bloated, a clean OS install can give it a fresh start. Just be sure to back up your files and prepare a list of essential apps to reinstall.
+        </p>
 
+        <p className="mt-5">
+          <strong>Conclusion: Stay Proactive, Not Reactive</strong> <br />
+          Speeding up your computer isn&apos;t just about quick fixes—it&apos;s about forming long-term habits that keep your system healthy. With a proactive approach and regular maintenance, you&apos;ll enjoy a faster, smoother experience for years to come.
+        </p>
       </article>
-
       <Footer />
     </main>
-  )
+  );
 }
