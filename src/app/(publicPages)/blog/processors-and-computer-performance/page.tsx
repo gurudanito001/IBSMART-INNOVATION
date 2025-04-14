@@ -1,12 +1,30 @@
-"use client"
 
 import NavBar from "../../navbar";
 import Footer from "../../footer";
-import useAnalytics from '@/app/hooks/useAnalytics'
+import { Metadata } from "next";
+//import useAnalytics from '@/app/hooks/useAnalytics'
+
+
+export const metadata: Metadata = {
+  title: "Processors and Computer Performance",
+  description: "Fully understand the processor descriptions in laptops and computers and make better purchase decisions when buying a laptop",
+  openGraph: {
+    title: "Processors and Computer Performance",
+    description: "Fully understand the processor descriptions in laptops and computers and make better purchase decisions when buying a laptop",
+    images: [
+      {
+        url: "/images/processor-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Computer Processor",
+      },
+    ],
+  }
+};
 
 
 export default function Page() {
-  useAnalytics();
+  //useAnalytics();
   return (
     <main className="bg-white text-black flex flex-col">
       <NavBar />

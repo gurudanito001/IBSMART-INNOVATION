@@ -1,13 +1,32 @@
-"use client"
 
 import NavBar from "../../navbar";
 import Footer from "../../footer";
-import useAnalytics from '@/app/hooks/useAnalytics'
+//import useAnalytics from '@/app/hooks/useAnalytics'
+import { Metadata } from "next";
 import Image from "next/image";
 
 
+
+export const metadata: Metadata = {
+  title: "Popular laptops and their series",
+  description: "Know all the different series of the most popular laptop brands and see the target consumers for each of them.",
+  openGraph: {
+    title: "Popular laptops and their series",
+    description: "Know all the different series of the most popular laptop brands and see the target consumers for each of them.",
+    images: [
+      {
+        url: "/images/dell-inspiron.avif",
+        width: 1200,
+        height: 630,
+        alt: "Popular laptops and their series",
+      },
+    ],
+  }
+};
+
+
 export default function Page() {
-  useAnalytics();
+  //useAnalytics();
   return (
     <main className="bg-white text-black flex flex-col">
       <NavBar />

@@ -1,12 +1,30 @@
-"use client"
 
 import NavBar from "../../navbar";
 import Footer from "../../footer";
-import useAnalytics from '@/app/hooks/useAnalytics'
+import { Metadata } from "next";
+//import useAnalytics from '@/app/hooks/useAnalytics'
+
+
+export const metadata: Metadata = {
+  title: "Why Your Laptop Gets Slower Over Time",
+  description: "Here's a quick breakdown of why laptops slow down over time—and how one issue often leads to another",
+  openGraph: {
+    title: "Why Your Laptop Gets Slower Over Time",
+    description: "Here's a quick breakdown of why laptops slow down over time—and how one issue often leads to another",
+    images: [
+      {
+        url: "/images/slow-laptop-user-desktop.png",
+        width: 1200,
+        height: 630,
+        alt: "Slow laptop",
+      },
+    ],
+  }
+};
 
 
 export default function Page() {
-  useAnalytics();
+  //useAnalytics();
   return (
     <main className="bg-white text-black flex flex-col">
       <NavBar />

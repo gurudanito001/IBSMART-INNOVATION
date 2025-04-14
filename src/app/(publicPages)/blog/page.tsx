@@ -36,6 +36,7 @@ export default function Page() {
           <ArticleCard imageUrl="/images/processor-thumbnail.jpg" title="Processors and Computer Performance" url="/processors-and-computer-performance" />
           <ArticleCard imageUrl="/images/laptop-series.avif" title="Popular laptops and their series" url="/laptop-series" />
           <ArticleCard imageUrl="/images/slow-laptop-user.jpg" title="Why Your Laptop Gets Slower" url="/why-your-laptop-gets-slower" />
+          <ArticleCard imageUrl="/images/fast-laptop-happy-children.jpg" title="How to Make Your Computer Faster" url="/how-to-make-your-laptop-faster" />
       </section>
       <Footer />
     </main>

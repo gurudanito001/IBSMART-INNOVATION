@@ -1,12 +1,31 @@
-"use client"
 
 import NavBar from "../../navbar";
 import Footer from "../../footer";
-import useAnalytics from '@/app/hooks/useAnalytics'
+import { Metadata } from "next";
+//import useAnalytics from '@/app/hooks/useAnalytics'
+
+
+export const metadata: Metadata = {
+  title: "Introduction to IBSMART INNOVATION",
+  description: "Learn about the company goals and core values of IBSMART INNOVATION",
+  openGraph: {
+    title: "Introduction to IBSMART INNOVATION",
+    description: "Learn about the company goals and core values of IBSMART INNOVATION",
+    images: [
+      {
+        url: "/images/who-are-we.png",
+        width: 1200,
+        height: 630,
+        alt: "Ibsmart Innovation",
+      },
+    ],
+  }
+};
+
 
 
 export default function Page() {
-  useAnalytics();
+  //useAnalytics();
   return (
     <main className="bg-white text-black flex flex-col">
       <NavBar />
