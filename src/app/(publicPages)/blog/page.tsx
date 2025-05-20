@@ -37,6 +37,7 @@ export default function Page() {
           <ArticleCard imageUrl="/images/laptop-series.avif" title="Popular laptops and their series" url="/laptop-series" />
           <ArticleCard imageUrl="/images/slow-laptop-user.jpg" title="Why Your Laptop Gets Slower" url="/why-your-laptop-gets-slower" />
           <ArticleCard imageUrl="/images/fast-laptop-happy-children.jpg" title="How to Make Your Computer Faster" url="/how-to-make-your-laptop-faster" />
+          <ArticleCard imageUrl="/images/georgeous-laptops/stylish-laptop.avif" title="Ten Gorgeous Laptops You Might Wish You Never Bought" url="/gorgeous-laptops-you-wish-you-never-bought" />
       </section>
       <Footer />
     </main>
