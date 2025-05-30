@@ -52,7 +52,7 @@ const Footer = ()=>{
       </div>
 
       <p className="text-center mx-5 lg:mx-28 border-t pt-8 text-sm lg:text-lg">
-        Copyright © 2024 IBSMART INNOVATION. All rights reserved.
+        Copyright © {new Date().getFullYear()} IBSMART INNOVATION. All rights reserved.
       </p>
 
     </section>
